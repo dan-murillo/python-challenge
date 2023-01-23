@@ -19,8 +19,7 @@ with open(findata_csv) as csvfile:
     net_total = fsum(ProfitLoses_list)
     
     diff_list = [ProfitLoses_list[i + 1] - ProfitLoses_list[i] for i in range(len(ProfitLoses_list)-1)]
-    ave_change = round(mean(diff_list),2)
-    diff_list.index(max(diff_list))
+    ave_change = round(mean(diff_list), 2)
     
     max_index = diff_list.index(max(diff_list))
     min_index = diff_list.index(min(diff_list))
