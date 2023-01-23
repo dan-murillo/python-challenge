@@ -1,7 +1,6 @@
 import os
 import csv
 from statistics import mode
-from collections import Counter
 
 election_csvpath = os.path.join('Resources', 'election_data.csv')
 
@@ -14,22 +13,26 @@ with open(election_csvpath) as csvfile:
     for row in csvreader:
         candidate_list.append(row[2])
 
-    candidate1_count = candidate_list.count("Charles Casper Stockham")
-    candidate2_count = candidate_list.count("Diana DeGette")
-    candidate3_count = candidate_list.count("Raymon Anthony Doane")
-    total = candidate1_count + candidate2_count + candidate3_count
+    def candidates_count(candidate):
+        final_count = candidate_list.count(candidate)
+        return final_count
 
-    candidate1_per = round((candidate1_count / total) * 100, 3)
-    candidate2_per = round((candidate2_count / total) * 100, 3)
-    candidate3_per = round((candidate3_count / total) * 100, 3)
+    candidate1 = "Charles Casper Stockham"
+    candidate2 = "Diana DeGette"
+    candidate3 = "Raymon Anthony Doane"
 
+    def candidates_per(candidate):
+        total = len(candidate_list)
+        candidate_per = round((candidates_count(candidate) / total) * 100, 3)
+        return candidate_per
+    
     print("Election Results")
     print("-------------------------")
     print(f"Total votes: {len(candidate_list)}")
     print("-------------------------")
-    print(f"Charles Casper Stockham: {candidate1_per}% ({candidate1_count})")
-    print(f"Diana DeGette: {candidate2_per}% ({candidate2_count})")
-    print(f"Raymon Anthony Doane: {candidate3_per}% ({candidate3_count})")
+    print(f"{candidate1}: {candidates_per(candidate1)}% ({candidates_count(candidate1)})")
+    print(f"{candidate2}: {candidates_per(candidate2)}% ({candidates_count(candidate2)})")
+    print(f"{candidate3}: {candidates_per(candidate3)}% ({candidates_count(candidate3)})")
     print("-------------------------")
     print(f"Winner: {mode(candidate_list)}")
     print("-------------------------")
@@ -45,11 +48,11 @@ with open(election_csvpath) as csvfile:
         txtfile.write("\n")
         txtfile.write("-------------------------")
         txtfile.write("\n")
-        txtfile.write(f"Charles Casper Stockham: {candidate1_per}% ({candidate1_count})")
+        txtfile.write(f"{candidate1}: {candidates_per(candidate1)}% ({candidates_count(candidate1)})")
         txtfile.write("\n")
-        txtfile.write(f"Diana DeGette: {candidate2_per}% ({candidate2_count})")
+        txtfile.write(f"{candidate2}: {candidates_per(candidate2)}% ({candidates_count(candidate2)})")
         txtfile.write("\n")
-        txtfile.write(f"Raymon Anthony Doane: {candidate3_per}% ({candidate3_count})")
+        txtfile.write(f"{candidate3}: {candidates_per(candidate3)}% ({candidates_count(candidate3)})")
         txtfile.write("\n")
         txtfile.write("-------------------------")
         txtfile.write("\n")
